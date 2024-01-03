@@ -2,11 +2,19 @@
 
 import argparse
 
+from backend.revshell import revshell
 from backend.scan import scan
 
 parser = argparse.ArgumentParser(   prog="hackeraptor",
                                     description="All-in-one hacking tool" )
 subparsers = parser.add_subparsers(help="main command")
+
+subparser = subparsers.add_parser("revshell", help="scan ports")
+subparser.set_defaults(func=revshell)
+subparser.add_argument("language", help="reverse shell language", choices=("python","sh"))
+subparser.add_argument("-e", "--encoding", help="payload encoding", choices=("base64","none"), required=True)
+subparser.add_argument("-i", "--attacker-ip", help="attacker ip", required=True)
+subparser.add_argument("-p", "--attacker-port", help="attacker port", required=True)
 
 subparser = subparsers.add_parser("scan", help="scan ports")
 subparser.set_defaults(func=scan)
