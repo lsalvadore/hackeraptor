@@ -1,12 +1,13 @@
 from base64 import b64encode
 from re import sub
+from os.path import dirname, realpath
 
 def revshell(args):
     language = args.language
     encoding = args.encoding
     attackerIP = args.attacker_ip
     attackerPort = args.attacker_port
-    with open(f"data/reverse shells/{language}","r") as code:
+    with open(dirname(realpath(__file__)) + f"/../data/reverse shells/{language}","r") as code:
         shell = b""
         for line in code:
             line = sub("ATTACKER_IP",attackerIP,line)
